@@ -8,31 +8,14 @@ In the ever-evolving digital landscape, online platforms, chat platforms, and so
 
 ### Case Studies Reference
 Case Study 1: Predicting Personality Types from Twitter Posts
+https://www.researchgate.net/publication/366614754_Personality_Prediction_from_Twitter_Dataset_using_Machine_Learning 
 
-Study: Sakdipat Ontoum et al. (2016)
-Method: Machine learning techniques applied to Twitter posts
-Result: 71% accuracy in predicting MBTI personality types
-
-Case Study 2: Analyzing Language Use for Personality Prediction
-
-Study: Madi Bokishev (2022)
-Method: Analysis of writing styles associated with different MBTI types
-Result: Identification of linguistic patterns associated with each personality type
-
-Case Study 3: Personalizing Marketing Campaigns
-
-Study: Adobe (2019)
-Method: Use of MBTI data to personalize marketing campaigns for different personality types
-Result: Increased click-through rates and conversion rates for personalized campaigns
+Case Study 2: Personality Type Based on Myers-Briggs Type Indicator with Text Posting Style by using Traditional and Deep Learning
+https://arxiv.org/pdf/2201.08717.pdf
 
 ### Target Audience
-The primary target audience for this research includes:
-
- - Online Platform Developers
- - Digital Marketing Professionals
- - Researchers and Academics
- - Policymakers and Regulators
-
+The primary target audience for this research is "Online Platform Developers"
+ 
 ### Research Methodology
 1) Model Development Using Subreddit Posts: We will develop a predictive model using posts from two subreddit forums, specifically the subreddits dedicated to the INFP and ESTJ Myers-Briggs personality types. This phase focuses on analyzing the language and content of these posts to classify them according to the personality type they most likely represent.
 #####          Remark: Please be aware that our focus for the model detailed below is primarily on this first method, "Model Development Using Subreddit Posts."
@@ -114,25 +97,25 @@ CONCLUSION AND BUSINSS RECOMMENDATION
  - we load data from estj subreddit 
  - we concat both data into 1 data frame 
  - we select 10 columns including 
-        id                  
-        author_fullname      
-        subreddit           
-        link_flair_text      
-        title               
-        selftext            
-        num_comments         
-        selftext_length      
-        title_length        
-        title_emoji_count 
+        - id                  
+        - author_fullname      
+        - subreddit           
+        - link_flair_text      
+        - title               
+        - selftext            
+        - num_comments         
+        - selftext_length      
+        - title_length        
+        - title_emoji_count 
  - we combine title and selftext column into 1 column called text column 
  - we remove all text that are url   
 
 ## Base Model Building Summary
  - in base model 1, we include select 5 columns including 'link_flair_text','text','num_comments', 'selftext_length', 'title_length', 'title_emoji_count'
        
-        link_flair_text is categorical data which we get dummify 
-        text is text data which tokenize 
-        other columns are numerical data which we do standard scaling 
+        - link_flair_text is categorical data which we get dummify 
+        - text is text data which tokenize 
+        - other columns are numerical data which we do standard scaling 
 
  - as a result, we get very high accuracry score train = 1.0 vs test = 0.98 
  - in base model 2, we exclude 'link_flair_text' column which is specific to reddit website 
@@ -146,11 +129,12 @@ CONCLUSION AND BUSINSS RECOMMENDATION
 - for tunning 1, we do 4 combination of tuning which including vectorisation (count vs TF-IDF) and stemming/lemmanization (yes or no)
  - as a result, we have better test accuracy score, compared to base model 3, from 0.62 to 0.72 (for the best model) 
         
-                  Vectorization Method              Stemming      Lemmatization        	Accuracy  
-          0     Count Vectorizer                    True           True                		0.88
-          1     Count Vectorizer                    False          False               		0.87
-          2    TF-IDF Vectorizer                    True           True                		0.83
-          3    TF-IDF Vectorizer                    False          False               		0.84 
+|Vectorization Method|Stemming|Lemmatization|Accuracy| 
+|---|---|---|---|
+|Count Vectorizer|True|True|0.88|
+|Count Vectorizer|False|False|0.87|
+|TF-IDF Vectorizer|True|True|0.83|
+|TF-IDF Vectorizer|False|False|0.84| 
 
  - in addition, we find count vectorizer is much better than TF-IDF vectorizer 
  - but there is not much difference there is stemming/lemmanization 
@@ -158,20 +142,21 @@ CONCLUSION AND BUSINSS RECOMMENDATION
  - as a result, we have better 3 models that perform best including logistic regression, random forest, and G Boost 
  - there is no difference between top 3 models without parameter tuning; both has score at 0.88
 
- 		                                Model         Accuracy                     
-                     0   Logistic Regression     	0.880488   
-                     1                   KNN     	0.697561   
-                     2  Bagged Decision Tree     	0.843902   
-                     3         Random Forest     	0.880488   
-                     4              AdaBoost     	0.753659   
-                     5        Gradient Boost     	0.814634   
-                     6                   SVM     	0.775610
+|Model|Accuracy|
+|-----|--------|                   
+|Logistic Regression|0.880488|   
+|KNN|0.697561|
+|Bagged Decision Tree|0.843902|
+|Random Forest|0.880488|
+|AdaBoost|0.753659|   
+|Gradient Boost|0.814634| 
+|SVM|0.775610|
 
  - for tunning 3, we do parameter tunning for each model
  - as result, we found that random forest has best performance, followed very closely by Gboost. 
       
-       logistic regression train at 0.99 vs test at 0.89 --> 0.10 difference
-       random forest train at 1.0 vs test at 0.92 ---> 0.08 difference
+       - logistic regression train at 0.99 vs test at 0.89 --> 0.10 gap
+       - random forest train at 1.0 vs test at 0.92 ---> 0.08 gap
 
 ## Final Conclusion
 
